@@ -1,0 +1,28 @@
+name: build-image
+description: "Composite action to build and push Docker Image to ECR Repo"
+
+inputs:
+  region:
+    required: true
+  docker-image-tag:
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: "Authenticate against AWS"
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        role-to-assume: arn:aws:iam::784364363154:role/AccessAWS
+        role-session-name: oidcawsaccess
+        aws-region: ${{ env.AWS_REGION }}   
+    - name: "Login to ECR"
+      uses: aws-actions/amazon-ecr-login@v1
+    - name: "Build And Push Application To ECR"
+      shell: bash
+      run: |
+        docker build -t flask-app-repo .
+        docker tag flask-app-repo:latest 784364363154.dkr.ecr.ap-southeast-1.amazonaws.com/flask-app-repo:${{ inputs.docker-image-tag }}
+        docker push 784364363154.dkr.ecr.ap-southeast-1.amazonaws.com/flask-app-repo:${{ inputs.docker-image-tag }}
+
+

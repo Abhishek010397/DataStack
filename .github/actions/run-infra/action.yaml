@@ -1,0 +1,18 @@
+name: run-terraform
+description: Execution Steps for Terraform
+inputs:
+  aws-region: 
+    description: "AWS Region"
+    required: true
+  environment:
+    description: "Need Environment"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Init,Plan,Apply Terraform
+      shell : bash
+      run: |
+        terraform init
+        terraform apply --var-file=${{ inputs.environment }}.tfvars -auto-approve -input=false

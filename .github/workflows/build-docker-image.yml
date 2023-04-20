@@ -1,0 +1,22 @@
+name: build-docker-image
+
+on:
+  workflow_dispatch:
+  inputs:
+    docker-image-tag:
+      description: "Tag for Docker Image"
+      required: true
+      default: latest
+
+env:
+  AWS_REGION : "ap-southeast-1"
+
+jobs:
+  build-image: 
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build Image
+      uses: ./.github/actions/build-image
+      with:
+        docker-image-tag: ${{ github.event.inputs.docker-image-tag }}
+        aws-region: ${{ env.AWS_REGION }} 

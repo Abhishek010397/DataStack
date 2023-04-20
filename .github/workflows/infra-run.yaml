@@ -1,0 +1,37 @@
+name: RUN-INFRA
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        required: true
+        default: sandbox
+env:
+  AWS_REGION : "ap-southeast-1"
+
+permissions:
+      id-token: write   
+      contents: read    
+jobs:
+  run-terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v3
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          role-to-assume: arn:aws:iam::784364363154:role/AccessAWS
+          role-session-name: oidcawsaccess
+          aws-region: ${{ env.AWS_REGION }}
+
+      - uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.2.7      
+
+      - name: Run Terraform Sandbox
+        uses: ./.github/actions/run-infra
+        with:
+          aws-region: ${{ env.AWS_REGION }} 
+          environment: ${{ github.event.inputs.environment }}
