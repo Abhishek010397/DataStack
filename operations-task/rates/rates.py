@@ -8,7 +8,7 @@ from werkzeug.exceptions import BadRequest
 import re
 
 
-secret_name = "flask/rds/rds-postgres-secret"
+secret_name = "flaskwebapp/rds/rds-postgres-secret"
 region_name = "ap-southeast-1"
 session = boto3.session.Session()
 client = session.client(

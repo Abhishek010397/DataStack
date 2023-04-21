@@ -22,7 +22,7 @@ variable "region" {
     type = string
 }
 
-variable "alb_sg_name" {
+variable "nlb_sg_name" {
   type = string
 }
 

@@ -2,8 +2,8 @@ output "public_subnet_ids" {
   value = aws_subnet.public-subnet.*.id
 }
 
-output "alb_sg_id" {
-  value = aws_security_group.alb_sg.id
+output "nlb_sg_id" {
+  value = aws_security_group.nlb_sg.id
 }
 
 output "asg_sg_id" {

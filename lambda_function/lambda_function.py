@@ -8,7 +8,7 @@ def run_ssm_command(instance_id):
         InstanceIds=[instance_id],
         DocumentName='AWS-RunShellScript',
         Parameters={
-            'commands': [' cd /home/ssm-user/scripts/ && sh batch_script.sh']
+            'commands': ['sh /home/ssm-user/scripts/batch_script.sh']
             
         }
     )

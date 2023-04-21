@@ -13,7 +13,7 @@ module "networking" {
   local_count                 = local.local_count
   vpc_cidr_block              = var.vpc_cidr_block
   vpc_id                      = var.vpc_id
-  alb_sg_name                 = var.alb_sg_name
+  nlb_sg_name                 = var.nlb_sg_name
   asg_sg_name                 = var.asg_sg_name 
   rds_sg_name                 = var.rds_sg_name 
   lambda_security_group_name  = var.lambda_security_group_name
@@ -81,13 +81,13 @@ module "ecr" {
     ecr_repo_name = var.ecr_repo_name
 }
 
-#Deploy ALB
-module "alb" {
-    source                     = "./modules/alb"
-    alb_name                   = var.alb_name
-    alb_sg_id                  = module.networking.alb_sg_id
-    alb_public_subnet_ids      = module.networking.public_subnet_ids
-    alb_tg_name                = var.alb_tg_name
+#Deploy NLB
+module "nlb" {
+    source                     = "./modules/nlb"
+    nlb_name                   = var.nlb_name
+    nlb_sg_id                  = module.networking.nlb_sg_id
+    nlb_public_subnet_ids      = module.networking.public_subnet_ids
+    nlb_tg_name                = var.nlb_tg_name
     vpc_id                     = var.vpc_id
     tags                       = local.tags
 
@@ -146,7 +146,7 @@ module "autoscaling_grous" {
   asg_minimum_capacity                = var.asg_minimum_capacity
   asg_instance_profile_role_name      = module.iam.asg_instance_role_name
   public_subnet_ids                  = module.networking.public_subnet_ids
-  lb_target_group_arn                 = module.alb.alb_target_group_arn
+  lb_target_group_arn                 = module.nlb.nlb_target_group_arn
   asg_name                            = var.asg_sg_name
   tags                                = local.tags
 }

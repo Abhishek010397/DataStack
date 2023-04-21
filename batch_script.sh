@@ -1,8 +1,8 @@
 #!/bin/bash
 
-aws s3 sync s3://rds-db-config-bucket/config . --region ap-southeast-1
+aws s3 sync s3://rds-db-config-bucket/config /home/ssm-user/scripts/. --region ap-southeast-1
 
-secret_string=$(aws secretsmanager get-secret-value --secret-id flaskapp/rds/rds-postgres-secret --query SecretString --output text --region ap-southeast-1)
+secret_string=$(aws secretsmanager get-secret-value --secret-id flaskwebapp/rds/rds-postgres-secret --query SecretString --output text --region ap-southeast-1)
 
 db_password=$(echo "$secret_string" | jq -r '.DB_PASSWORD')
 db_user=$(echo "$secret_string" | jq -r '.DB_USER')

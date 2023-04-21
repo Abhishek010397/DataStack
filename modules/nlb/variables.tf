@@ -1,16 +1,16 @@
-variable "alb_name"{
+variable "nlb_name"{
     type = string
 }
 
-variable "alb_sg_id" {
+variable "nlb_sg_id" {
     type = string
 }
 
-variable "alb_public_subnet_ids" {
+variable "nlb_public_subnet_ids" {
     type = list(string)
 }
 
-variable "alb_tg_name" {
+variable "nlb_tg_name" {
     type = string
 }
 

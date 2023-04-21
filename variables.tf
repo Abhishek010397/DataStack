@@ -72,11 +72,11 @@ variable "ecr_repo_name" {
   type = string
 }
 
-variable "alb_name"{
+variable "nlb_name"{
     type = string
 }
 
-variable "alb_tg_name" {
+variable "nlb_tg_name" {
     type = string
 }
 
@@ -84,7 +84,7 @@ variable "rds_subnet_group_name" {
     type = string
 }
 
-variable "alb_sg_name" {
+variable "nlb_sg_name" {
     type = string
 }
 

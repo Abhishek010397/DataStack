@@ -1,9 +1,15 @@
+data "archive_file" "lambda" {
+  type        = "zip"
+  source_file = var.lambda_source_file 
+  output_path = "lambda_function.zip"
+}
+
 resource "aws_lambda_function" "batch_job_lambda" {
-  filename         = var.lambda_source_file 
+  filename         = "lambda_function.zip"
   function_name    = var.lambda_function_name
   role             = var.iam_role_lambda
   handler          = "lambda_function.lambda_handler"
-  source_code_hash = filebase64sha256(var.lambda_source_file)
+  source_code_hash = data.archive_file.lambda.output_base64sha256
   runtime          = "python3.9"
   timeout          = 900
 

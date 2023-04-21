@@ -35,8 +35,8 @@ resource "aws_route_table_association" "Public-route-association" {
 }
 
 #Security Group for LoadBalancer
-resource "aws_security_group" "alb_sg" {
-  name        = var.alb_sg_name
+resource "aws_security_group" "nlb_sg" {
+  name        = var.nlb_sg_name
   description = "Allow incoming HTTP connections"
   vpc_id      = var.vpc_id
 
