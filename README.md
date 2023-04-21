@@ -23,3 +23,7 @@ Made use of ECR to store images.
 Tools used here are terraform,Github Actions for Infra deployment And CICD process.
 
 Made use of GitHub-OIDC for authentication in AWS.
+
+Below is the curl command result when against the NLB(Network LoadBalancer)
+
+![alt-text](https://github.com/Abhishek010397/DataStack/blob/master/NLB-OP.jpg)
